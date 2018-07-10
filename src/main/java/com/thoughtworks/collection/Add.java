@@ -5,6 +5,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -95,9 +96,14 @@ public class Add {
     }
 
     public List<Integer> getProcessedList(List<Integer> arrayList) {
-         return Collections.singletonList(arrayList.stream()
-                                            .map(x->x)
-                                          .reduce(0, (x, y) -> (x + y) * 3));
+        AtomicInteger temp = new AtomicInteger(0);
+        arrayList = arrayList.stream().map(x->{
+            int result = (x+temp.get())*3;
+            temp.set(x);
+            return result;
+        }).collect(Collectors.toList());
+        arrayList.remove(0);
+        return arrayList;
 
 
     }
