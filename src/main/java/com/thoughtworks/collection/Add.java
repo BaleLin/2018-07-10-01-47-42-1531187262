@@ -9,18 +9,27 @@ import java.util.stream.IntStream;
 public class Add {
     public int getSumOfEvens(int leftBorder, int rightBorder) {
         if (leftBorder > rightBorder) {
-            int temp = leftBorder;
+            int soon = leftBorder;
             leftBorder = rightBorder;
-            rightBorder = temp;
+            rightBorder = soon;
         }
-        List<Integer> collect = IntStream.range(leftBorder, rightBorder + 1).boxed().collect(Collectors.toList());
-        return collect.stream()
-                .filter(x -> x % 2 == 0).reduce(0, (x, y) -> x + y);
+        List<Integer> collection = IntStream.range(leftBorder, rightBorder + 1).boxed().collect(Collectors.toList());
+        return collection.stream()
+                .filter(x -> x % 2 == 0)
+                .reduce(0, (x, y) -> x + y);
 
     }
 
     public int getSumOfOdds(int leftBorder, int rightBorder) {
-        throw new NotImplementedException();
+        if (leftBorder > rightBorder) {
+            int soon = leftBorder;
+            leftBorder = rightBorder;
+            rightBorder = soon;
+        }
+        List<Integer> collection = IntStream.range(leftBorder, rightBorder + 1).boxed().collect(Collectors.toList());
+        return collection.stream()
+                .filter(x -> x % 2 == 1)
+                .reduce(0, (x, y) -> x + y);
     }
 
     public int getSumTripleAndAddTwo(List<Integer> arrayList) {
