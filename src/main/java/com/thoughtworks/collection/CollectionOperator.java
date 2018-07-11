@@ -31,8 +31,11 @@ public class CollectionOperator {
     }
 
     public List<Integer> popEvenElments(int[] array) {
-        List<Integer> list = buildListsFromArray(array);
-        return list.stream().filter(x -> x % 2 == 0).collect(Collectors.toList());
+        List<Integer> list = Arrays.stream(array)
+                                    .boxed()
+                                    .filter(x -> x % 2 == 0)
+                                    .collect(Collectors.toList());
+                 return list;
     }
 
     public int popLastElment(int[] array) {
@@ -40,16 +43,18 @@ public class CollectionOperator {
     }
 
     public List<Integer> popCommonElement(int[] firstArray, int[] secondArray) {
-        List<Integer> firstList = buildListsFromArray(firstArray);
-        List<Integer> secondList = buildListsFromArray(secondArray);
-        return firstList.stream().filter(secondList::contains).collect(Collectors.toList());
+        List<Integer> firstList = Arrays.stream(firstArray).boxed().collect(Collectors.toList());
+        List<Integer> secondList = Arrays.stream(secondArray).boxed().collect(Collectors.toList());
+        return firstList.stream().filter(x->secondList.contains(x)).collect(Collectors.toList());
     }
 
     public List<Integer> addUncommonElement(Integer[] firstArray, Integer[] secondArray) {
         List<Integer> list = new ArrayList<>();
         List<Integer> firstList = Arrays.asList(firstArray);
         List<Integer> secondList = Arrays.asList(secondArray);
-        List<Integer> collect = secondList.stream().filter(x -> !firstList.contains(x)).collect(Collectors.toList());
+        List<Integer> collect = secondList.stream()
+                                          .filter(x -> !firstList.contains(x))
+                                          .collect(Collectors.toList());
         list.addAll(firstList);
         list.addAll(collect);
         return list;

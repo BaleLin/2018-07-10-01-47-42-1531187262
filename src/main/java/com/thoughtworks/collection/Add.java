@@ -4,6 +4,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -31,7 +32,7 @@ public class Add {
         }
         List<Integer> collection = IntStream.range(leftBorder, rightBorder + 1).boxed().collect(Collectors.toList());
         return collection.stream()
-                .filter(x -> x % 2 == 1)
+                .filter(x -> x % 2 !=0)
                 .reduce(0, (x, y) -> x + y);
     }
 
@@ -78,7 +79,8 @@ public class Add {
     public List<Integer> getUnrepeatedFromEvenIndex(List<Integer> arrayList) {
         return arrayList.stream()
                         .filter(x -> x % 2 == 0)
-                        .distinct().collect(Collectors.toList());
+                        .distinct()
+                        .collect(Collectors.toList());
     }
 
     public List<Integer> sortByEvenAndOdd(List<Integer> arrayList) {
@@ -88,7 +90,7 @@ public class Add {
                                         .sorted().collect(Collectors.toList());
         List<Integer> odd = arrayList.stream()
                                      .filter(x -> x % 2 != 0)
-                                     .sorted((a, b) -> a > b ? -1 : 1)
+                                     .sorted(Comparator.reverseOrder())
                                      .collect(Collectors.toList());
         list.addAll(evenNum);
         list.addAll(odd);
@@ -104,7 +106,5 @@ public class Add {
         }).collect(Collectors.toList());
         arrayList.remove(0);
         return arrayList;
-
-
     }
 }

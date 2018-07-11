@@ -21,14 +21,20 @@ public class Filter {
     }
 
     public List<Integer> filterMultipleOfThree() {
-        return array.stream().filter(x->x%3==0).collect(Collectors.toList());
+        return array.stream()
+                    .filter(x->x%3==0)
+                    .collect(Collectors.toList());
     }
 
     public List<Integer> getCommonElements(List<Integer> firstList, List<Integer> secondList) {
-        return firstList.stream().filter(secondList::contains).collect(Collectors.toList());
+        return firstList.stream()
+                        .filter(x -> secondList.contains(x)).
+                         collect(Collectors.toList());
     }
 
     public List<Integer> getDifferentElements() {
-        return array.stream().distinct().collect(Collectors.toList());
+        return array.stream()
+                    .distinct()
+                    .collect(Collectors.toList());
     }
 }
