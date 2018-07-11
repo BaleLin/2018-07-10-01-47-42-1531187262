@@ -17,17 +17,22 @@ public class Reduce {
     }
 
     public int getMaximum() {
+        int initNum = arrayList.get(0);
         return arrayList.stream()
-                        .reduce(0,(x, y) -> y>x?y:x);
+                        .reduce(initNum,(x, y) -> y>x?y:x);
     }
 
     public double getMinimum() {
+        int initNum = arrayList.get(0);
         return arrayList.stream()
-                        .reduce(99999999,(x, y) -> y<x?y:x);
+                        .reduce(initNum,(x, y) -> y<x?y:x);
     }
 
     public double getAverage() {
-        return arrayList.stream().mapToInt(Integer::intValue).average().getAsDouble();
+        return arrayList.stream()
+                        .mapToInt(Integer::intValue)
+                        .average()
+                        .getAsDouble();
     }
 
     public double getOrderedMedian() {
@@ -36,7 +41,9 @@ public class Reduce {
     }
 
     public int getFirstEven() {
-        return arrayList.stream().filter(x -> x % 2 == 0).collect(Collectors.toList()).get(0);
+        return arrayList.stream()
+                        .filter(x -> x % 2 == 0)
+                        .collect(Collectors.toList()).get(0);
     }
 
     public int getIndexOfFirstEven() {
@@ -69,14 +76,16 @@ public class Reduce {
     }
 
     public int getLastOdd() {
-        arrayList = arrayList.stream().filter(x -> x % 2 == 1).collect(Collectors.toList());
+        arrayList = arrayList.stream()
+                             .filter(x -> x % 2 != 0)
+                             .collect(Collectors.toList());
         return arrayList.get(arrayList.size() - 1);
     }
 
     public int getIndexOfLastOdd() {
         AtomicInteger index = new AtomicInteger();
         arrayList.forEach(x -> {
-            if (x % 2 == 1) {
+            if (x % 2 != 0) {
                 index.set(x);
             }
         });
